@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useTailwindDarkMode from "../hooks/useTailwindDarkMode";
+import { useTailwindDarkMode } from "../hooks";
 
 const TodoHeader = () => {
   const [userName, setUserName] = useState(localStorage.getItem("username") || "");

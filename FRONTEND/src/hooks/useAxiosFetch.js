@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useAxiosFetch = (baseUrl, todos) => {
+const useAxiosFetch = (baseUrl) => {
   const [data, setData] = useState([]);
   const [fetchError, setFetchError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -9,12 +9,13 @@ const useAxiosFetch = (baseUrl, todos) => {
   useEffect(() => {
     let isMounted = true;
     const source = axios.CancelToken.source();
+    let controller = new AbortController();
 
     const fetchData = async (url) => {
       setIsLoading(true);
       try {
         const response = await axios.get(url, {
-          cancelToken: source.token,
+          signal: controller.signal,
         });
         if (isMounted) {
           setData(response.data);
@@ -22,8 +23,12 @@ const useAxiosFetch = (baseUrl, todos) => {
         }
       } catch (error) {
         if (isMounted) {
-          setFetchError(error.message);
-          setData([]);
+          if (error.name === "AbortError") {
+            console.log("Fetch Aborted:", error.message);
+          } else {
+            setFetchError(error.message);
+            setData([]);
+          }
         }
       } finally {
         isMounted && setIsLoading(false);
@@ -33,9 +38,9 @@ const useAxiosFetch = (baseUrl, todos) => {
 
     return () => {
       isMounted = false;
-      source.cancel();
+      controller.abort();
     };
-  }, [baseUrl, todos]);
+  }, [baseUrl]);
 
   return { data, fetchError, isLoading };
 };

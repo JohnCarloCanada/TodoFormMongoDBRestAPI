@@ -3,7 +3,7 @@ import DataContext from "../context/DataContext";
 import api from "../api/todo";
 
 const TodoInput = () => {
-  const { todos, setTodos } = useContext(DataContext);
+  const { setTodos } = useContext(DataContext);
   const [newTodos, setNewTodos] = useState("");
   const [category, setCategory] = useState("");
 
@@ -12,8 +12,7 @@ const TodoInput = () => {
     const newTodoItem = { todo: newTodos, category };
     try {
       const response = await api.post("/todo", newTodoItem);
-      const newTodoItems = [...todos, response.data];
-      setTodos(newTodoItems);
+      setTodos((prevTodos) => [...prevTodos, response.data]);
       setNewTodos("");
     } catch (error) {
       console.log(`Error: ${error.message}`);

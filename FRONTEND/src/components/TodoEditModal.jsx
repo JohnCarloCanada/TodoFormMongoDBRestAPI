@@ -22,12 +22,10 @@ const TodoEditModal = () => {
       setEditTodo("");
       return null;
     }
+    const updatedList = { ...todo[0], todo: editTodo };
     try {
-      const response = await api.put(`todo/${id}`, {
-        todo: editTodo,
-      });
-      const todoList = todos.map((todo) => (todo._id === response.data._id ? { ...todo, todo: editTodo } : todo));
-      setTodos(todoList);
+      const response = await api.put(`todo/${id}`, updatedList);
+      setTodos((prevTodos) => prevTodos.map((todo) => (todo._id === response.data._id ? { ...todo, todo: editTodo } : todo)));
       setModalOpen(!modalOpen);
       document.body.style.overflow = "inherit";
       setEditTodo("");

@@ -1,6 +1,5 @@
 import React from "react";
-
-import TodoListItem from "./TodoListItem";
+import { TodoListItem } from "../components";
 import { motion, AnimatePresence } from "framer-motion";
 
 const TodoList = ({ todos, setFilter }) => {

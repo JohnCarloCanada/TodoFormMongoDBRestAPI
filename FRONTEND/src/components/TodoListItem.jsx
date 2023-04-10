@@ -4,15 +4,14 @@ import { motion } from "framer-motion";
 import api from "../api/todo";
 
 const TodoListItem = ({ todo }) => {
-  const { todos, setTodos, setEditID, setModalOpen, modalOpen } = useContext(DataContext);
+  const { setTodos, setEditID, setModalOpen, modalOpen } = useContext(DataContext);
 
   // Edit Check Todo
   const handleCheck = async (id) => {
     const updatedPost = { ...todo, completed: !todo.completed };
     try {
       const response = await api.put(`todo/${id}`, updatedPost);
-      const todoList = todos.map((todo) => (todo._id === response.data._id ? { ...todo, completed: !todo.completed } : todo));
-      setTodos(todoList);
+      setTodos((prevTodos) => prevTodos.map((todo) => (todo._id === response.data._id ? { ...todo, completed: !todo.completed } : todo)));
     } catch (error) {
       console.log(`Error: ${error.message}`);
     }
@@ -22,8 +21,7 @@ const TodoListItem = ({ todo }) => {
   const handleDelete = async (id) => {
     try {
       await api.delete(`todo/${id}`);
-      const todoList = todos.filter((todo) => todo._id !== id);
-      setTodos(todoList);
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
     } catch (error) {
       console.log(`Error: ${error.message}`);
     }

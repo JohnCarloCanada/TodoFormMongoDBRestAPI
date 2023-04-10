@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import useAxiosFetch from "../hooks/useAxiosFetch";
+import { useAxiosFetch } from "../hooks";
 
 const DataContext = createContext({});
 
@@ -8,7 +8,7 @@ export const DataProvider = ({ children }) => {
   const [filter, setFilter] = useState("all");
   const [modalOpen, setModalOpen] = useState(false);
   const [editID, setEditID] = useState(null);
-  const { data } = useAxiosFetch("http://localhost:3000/todo");
+  const { data, fetchError, isLoading } = useAxiosFetch("http://localhost:3000/todo");
 
   useEffect(() => {
     let isMounted = true;
@@ -28,6 +28,8 @@ export const DataProvider = ({ children }) => {
         setTodos,
         editID,
         setEditID,
+        fetchError,
+        isLoading,
       }}
     >
       {children}
