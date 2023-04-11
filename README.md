@@ -4,10 +4,13 @@
 
 A REST API created with the MERN (MongoDB, Express.js, React, Node.js) stack typically involves the following:
 
-1.MongoDB: A NoSQL database used to store data in a document-based format.
-2.Express.js: A web application framework for Node.js used to create the backend API.
-3.React: A JavaScript library used to create the frontend user interface.
-4.Node.js: A JavaScript runtime environment used to execute JavaScript code outside of a web browser.
+1. MongoDB: A NoSQL database used to store data in a document-based format.
+
+2. Express.js: A web application framework for Node.js used to create the backend API.
+
+3. React: A JavaScript library used to create the frontend user interface.
+
+4. Node.js: A JavaScript runtime environment used to execute JavaScript code outside of a web browser.
 
 The API would use HTTP methods such as GET, POST, PUT, and DELETE to perform CRUD (Create, Read, Update, Delete) operations on the data stored in the MongoDB database. Express.js is used to define the API routes and handle the HTTP requests and responses. The frontend user interface is created using React, which makes API requests to the backend and displays the data in the browser.
 
