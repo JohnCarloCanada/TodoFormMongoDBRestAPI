@@ -8,7 +8,7 @@ export const DataProvider = ({ children }) => {
   const [filter, setFilter] = useState("all");
   const [modalOpen, setModalOpen] = useState(false);
   const [editID, setEditID] = useState(null);
-  const { data, fetchError, isLoading } = useAxiosFetch("http://localhost:3000/todo");
+  const { data, fetchError, isLoading } = useAxiosFetch("https://todo-restapi.onrender.com/todo");
 
   useEffect(() => {
     let isMounted = true;
